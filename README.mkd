@@ -1,0 +1,13 @@
+# Binary off-heap hashmap benchmark.
+
+Benchmark for [bohmap](https://github.com/cfelde/BinaryOffheapHashMap).
+
+## How to build/update bohmap's jar.
+
+```
+$ cd bohmap
+$ ant jar
+$ cp dist/BinaryOffheapHashMap.jar ../libs
+``
+
+Built with apache ant 1.9.4.  Failed with 1.8.4.
