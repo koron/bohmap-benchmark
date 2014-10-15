@@ -1,8 +1,8 @@
-# Binary off-heap hashmap benchmark.
+# Benchmakr of bohmap
 
-Benchmark for [bohmap](https://github.com/cfelde/BinaryOffheapHashMap).
+Benchmark for [Binary off-heap Hashmap](https://github.com/cfelde/BinaryOffheapHashMap) (bohmap).
 
-## How to build/update bohmap's jar.
+# How to build/update bohmap's jar.
 
 ```
 $ cd bohmap
@@ -11,3 +11,42 @@ $ cp dist/BinaryOffheapHashMap.jar ../libs
 ```
 
 Built with apache ant 1.9.4.  Failed with 1.8.4.
+
+# Current Result
+
+**bohmap is about two times slower than HashMap.**
+
+```
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+Param: net.kaoriya.bohmapbench.Main$Param@61bbe9ba[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+HashMap
+net.kaoriya.bohmapbench.Main$Result@5e2de80c[
+  elapasedNanoTime=610,587
+  QPS=1,637,768
+  hitRate=0.746
+]
+
+BOHMap
+net.kaoriya.bohmapbench.Main$Result@4eec7777[
+  elapasedNanoTime=1,450,544
+  QPS=689,396
+  hitRate=0.758
+]
+
+BUILD SUCCESSFUL
+
+Total time: 7.24 secs
+```
