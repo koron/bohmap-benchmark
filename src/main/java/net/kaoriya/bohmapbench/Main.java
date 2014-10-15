@@ -2,8 +2,10 @@ package net.kaoriya.bohmapbench;
 
 import com.cfelde.bohmap.BOHMap;
 import com.cfelde.bohmap.Binary;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Main {
 
@@ -20,6 +22,12 @@ public class Main {
     public static class Result {
         public long elapasedNanoTime;
         public double hitRate;
+
+        @Override
+        public String toString() {
+            return ReflectionToStringBuilder.toString(this,
+                    ToStringStyle.MULTI_LINE_STYLE);
+        }
     }
 
     public static void main(String[] args) {
@@ -33,10 +41,12 @@ public class Main {
 
         System.out.println("HashMap");
         Result r1 = run(p, new HashMap<Binary, Binary>());
+        System.out.println(r1.toString());
         System.gc();
 
         System.out.println("BOHMap");
         Result r2 = run(p, new BOHMap(p.bohmapPartitionCount));
+        System.out.println(r2.toString());
         System.gc();
     }
 
