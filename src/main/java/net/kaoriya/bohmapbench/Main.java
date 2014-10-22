@@ -2,6 +2,13 @@ package net.kaoriya.bohmapbench;
 
 public class Main {
     public static void main(String[] args) {
-        QPS.run();
+        String mode = args.length >= 1 ? args[0] : null;
+        if (mode == null) {
+            QPS.run();
+        } else if ("memory".equals(mode)) {
+            Memory.run();
+        } else {
+            QPS.run();
+        }
     }
 }

@@ -1,14 +1,15 @@
 package net.kaoriya.bohmapbench;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import com.cfelde.bohmap.BOHMap;
 import com.cfelde.bohmap.Binary;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import java.util.Random;
-import java.util.ArrayList;
 
 public class QPS {
 
@@ -78,29 +79,18 @@ public class QPS {
     }
 
     public static Result run(Param p, Map<Binary, Binary> m, Random r) {
-        // Generate keys.
-        ArrayList<Binary> keys = new ArrayList<>();
-        int keySize = (int)(p.numOfItems / p.hitRate + 0.5);
-        for (int i = 0; i < keySize; ++i) {
-            keys.add(randomBinary(r, p.keyMaxLen));
-        }
-
-        // Setup map.
-        for (int i = 0; i < p.numOfItems; ++i) {
-            m.put(keys.get(i), randomBinary(r, p.valueMaxLen));
-        }
-
+        List<Binary> keys = Utils.setupMap(m, r, p.numOfItems, p.hitRate,
+                p.keyMaxLen, p.valueMaxLen);
         // Warm up.
         for (int i = 0; i < p.warmUp; ++i) {
             run(p, m, r, keys);
         }
-
         // Query to map.
         return run(p, m, r, keys);
     }
 
     public static Result run(Param p, Map<Binary, Binary> m, Random r,
-            ArrayList<Binary> keys) {
+            List<Binary> keys) {
         Result res = new Result();
         int keySize = keys.size();
         long startAt = System.nanoTime();
@@ -119,12 +109,6 @@ public class QPS {
         res.queryCount = query;
         res.hitCount = hit;
         return res;
-    }
-
-    public static Binary randomBinary(Random r, int len) {
-        byte[] b = new byte[len];
-        r.nextBytes(b);
-        return new Binary(b);
     }
 
     public static void run() {
