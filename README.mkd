@@ -1,6 +1,6 @@
 # Benchmakr of bohmap
 
-Benchmark for [Binary off-heap Hashmap](https://github.com/cfelde/BinaryOffheapHashMap) (bohmap).
+Benchmark for [Binary off-heap Hashmap](https://github.com/cfelde/BinaryOffheapHashMap) (bohmap) and [MapDB](http://www.mapdb.org/)'s offheap hashmap.
 
 # How to build/update bohmap's jar.
 
@@ -22,7 +22,7 @@ Built with apache ant 1.9.4.  Failed with 1.8.4.
 :classes UP-TO-DATE
 :run
 
-Param: net.kaoriya.bohmapbench.Main$Param@61bbe9ba[
+Param: net.kaoriya.bohmapbench.QPS$Param@1d44bcfa[
   warmUp=4
   iteration=1000
   numOfItems=1000000
@@ -33,22 +33,29 @@ Param: net.kaoriya.bohmapbench.Main$Param@61bbe9ba[
 ]
 
 HashMap
-net.kaoriya.bohmapbench.Main$Result@5e2de80c[
-  elapasedNanoTime=610,587
-  QPS=1,637,768
-  hitRate=0.746
+net.kaoriya.bohmapbench.QPS$Result@4dc63996[
+  elapasedNanoTime=673,493
+  QPS=1,484,796
+  hitRate=0.764
 ]
 
 BOHMap
-net.kaoriya.bohmapbench.Main$Result@4eec7777[
-  elapasedNanoTime=1,450,544
-  QPS=689,396
-  hitRate=0.758
+net.kaoriya.bohmapbench.QPS$Result@7cca494b[
+  elapasedNanoTime=1,467,818
+  QPS=681,283
+  hitRate=0.755
+]
+
+MapDB
+net.kaoriya.bohmapbench.QPS$Result@7de26db8[
+  elapasedNanoTime=2,199,534
+  QPS=454,641
+  hitRate=0.772
 ]
 
 BUILD SUCCESSFUL
 
-Total time: 7.24 secs
+Total time: 14.375 secs
 ```
 
 # Memory benchmark

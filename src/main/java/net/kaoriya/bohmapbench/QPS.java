@@ -10,6 +10,9 @@ import com.cfelde.bohmap.Binary;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.mapdb.DBMaker;
+import org.mapdb.DB;
+import org.mapdb.HTreeMap;
 
 public class QPS {
 
@@ -74,6 +77,31 @@ public class QPS {
         return r;
     }
 
+    public static Result runMapDB(Param p) {
+        System.out.println();
+        System.out.println("MapDB");
+        // Prepare DB.
+        DB db = DBMaker
+            .newMemoryDirectDB()
+            .transactionDisable()
+            .make();
+        BinarySerializer sk = new BinarySerializer();
+        BinarySerializer sv = new BinarySerializer();
+        HTreeMap<Binary, Binary> map = db
+            .createHashMap("bench")
+            .keySerializer(sk)
+            .valueSerializer(sv)
+            .make();
+        System.gc();
+        // Run benchmark.
+        Result r = run(p, map);
+        System.out.println(r.toString());
+        // Close DB.
+        db.close();
+        System.gc();
+        return r;
+    }
+
     public static Result run(Param p, Map<Binary, Binary> m) {
         return run(p, m, new Random());
     }
@@ -126,5 +154,6 @@ public class QPS {
 
         runHashMap(p);
         runBOHMap(p);
+        runMapDB(p);
     }
 }
