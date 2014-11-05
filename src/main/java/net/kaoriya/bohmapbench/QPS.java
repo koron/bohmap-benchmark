@@ -77,6 +77,17 @@ public class QPS {
         return r;
     }
 
+    public static Result runBOHMapMurmurHash3(Param p) {
+        System.gc();
+        System.out.println();
+        System.out.println("BOHMap+MurmurHash3");
+        Result r = run(p, new BOHMap(p.bohmapPartitionCount,
+                    Hash::murmurHash3));
+        System.out.println(r.toString());
+        System.gc();
+        return r;
+    }
+
     public static Result runMapDB(Param p) {
         System.out.println();
         System.out.println("MapDB");
@@ -139,7 +150,7 @@ public class QPS {
         return res;
     }
 
-    public static void run() {
+    public static Param defaultParam() {
         Param p = new Param();
         p.warmUp = 4;
         p.iteration = 1000;
@@ -148,12 +159,25 @@ public class QPS {
         p.keyMaxLen = 128;
         p.valueMaxLen = 128;
         p.bohmapPartitionCount = (int)(p.numOfItems * 1.5);
+        return p;
+    }
 
+    public static void run() {
+        Param p = defaultParam();
         System.out.println();
         System.out.println("Param: " + p.toString());
 
         runHashMap(p);
         runBOHMap(p);
         runMapDB(p);
+    }
+
+    public static void runMurmur() {
+        Param p = defaultParam();
+        System.out.println();
+        System.out.println("Param: " + p.toString());
+
+        runBOHMap(p);
+        runBOHMapMurmurHash3(p);
     }
 }
