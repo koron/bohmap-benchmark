@@ -7,6 +7,8 @@ public class Main {
             QPS.run();
         } else if ("murmur".equals(mode)) {
             QPS.runMurmur();
+        } else if ("hitrate".equals(mode)) {
+            QPS.runHitrate();
         } else if ("memory".equals(mode)) {
             Memory.run();
         } else {

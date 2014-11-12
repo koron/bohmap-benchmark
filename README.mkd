@@ -14,6 +14,8 @@ Built with apache ant 1.9.4.  Failed with 1.8.4.
 
 # Current Result
 
+## QPS
+
 **bohmap is about two times slower than HashMap.**
 
 ```
@@ -58,7 +60,7 @@ BUILD SUCCESSFUL
 Total time: 14.375 secs
 ```
 
-# Memory benchmark
+## Memory benchmark
 
 ```
 $ gradle run -Pargs="memory"
@@ -79,3 +81,12 @@ BUILD SUCCESSFUL
 
 Total time: 38.978 secs
 ```
+
+## QPS by Hit rate
+
+Hit rate | BOHMap (QPS) | HashMap (QPS)
+---------|-------------:|--------------:
+0.25     |1,005,000     |1,710,000
+0.50     |  720,000     |1,590,000
+0.75     |1,080,000     |1,630,000
+1.00     |  970,000     |1,610,000

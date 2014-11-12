@@ -180,4 +180,22 @@ public class QPS {
         runBOHMap(p);
         runBOHMapMurmurHash3(p);
     }
+
+    public static void runHitrate() {
+        Param p = defaultParam();
+        double[] rates = new double[]{ 0.25, 0.5, 0.75, 1.0 };
+
+        System.out.println("hitrate");
+
+        for (double r : rates) {
+            p.hitRate = r;
+            runBOHMap(p);
+        }
+
+        for (double r : rates) {
+            p.hitRate = r;
+            runHashMap(p);
+        }
+    }
+
 }
