@@ -5,6 +5,8 @@ public class Main {
         String mode = args.length >= 1 ? args[0] : null;
         if (mode == null) {
             QPS.run();
+        } else if ("qps".equals(mode)) {
+            QPS.run();
         } else if ("murmur".equals(mode)) {
             QPS.runMurmur();
         } else if ("hitrate".equals(mode)) {
