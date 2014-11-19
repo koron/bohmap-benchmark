@@ -7,88 +7,44 @@ import java.util.Random;
 
 import com.cfelde.bohmap.BOHMap;
 import com.cfelde.bohmap.Binary;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.mapdb.DBMaker;
 import org.mapdb.DB;
 import org.mapdb.HTreeMap;
 
 public class QPS {
 
-    public static class Param {
-        public int warmUp;
-        public int iteration;
-        public int numOfItems;
-        public double hitRate;
-        public int keyMaxLen;
-        public int valueMaxLen;
-
-        public int bohmapPartitionCount;
-
-        @Override
-        public String toString() {
-            return ReflectionToStringBuilder.toString(this,
-                    ToStringStyle.MULTI_LINE_STYLE);
-        }
-    }
-
-    public static class Result {
-        public long elapasedNanoTime;
-        public int queryCount;
-        public int hitCount;
-
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("elapasedNanoTime",
-                        String.format("%1$,3d", elapasedNanoTime))
-                .append("QPS", String.format("%1$,3d", getQPS()))
-                .append("hitRate", getHitRate())
-                .toString();
-        }
-
-        public double getHitRate() {
-            return (double)this.hitCount / this.queryCount;
-        }
-
-        public long getQPS() {
-            return queryCount * (long)1e9 / this.elapasedNanoTime;
-        }
-    }
-
-    public static Result runHashMap(Param p) {
+    public static QpsResult runHashMap(QpsParam p) {
         System.gc();
         System.out.println();
         System.out.println("HashMap");
-        Result r = run(p, new HashMap<Binary, Binary>());
+        QpsResult r = run(p, new HashMap<Binary, Binary>());
         System.out.println(r.toString());
         System.gc();
         return r;
     }
 
-    public static Result runBOHMap(Param p) {
+    public static QpsResult runBOHMap(QpsParam p) {
         System.gc();
         System.out.println();
         System.out.println("BOHMap");
-        Result r = run(p, new BOHMap(p.bohmapPartitionCount));
+        QpsResult r = run(p, new BOHMap(p.bohmapPartitionCount));
         System.out.println(r.toString());
         System.gc();
         return r;
     }
 
-    public static Result runBOHMapMurmurHash3(Param p) {
+    public static QpsResult runBOHMapMurmurHash3(QpsParam p) {
         System.gc();
         System.out.println();
         System.out.println("BOHMap+MurmurHash3");
-        Result r = run(p, new BOHMap(p.bohmapPartitionCount,
+        QpsResult r = run(p, new BOHMap(p.bohmapPartitionCount,
                     Hash::murmurHash3));
         System.out.println(r.toString());
         System.gc();
         return r;
     }
 
-    public static Result runMapDB(Param p) {
+    public static QpsResult runMapDB(QpsParam p) {
         System.out.println();
         System.out.println("MapDB");
         // Prepare DB.
@@ -105,7 +61,7 @@ public class QPS {
             .make();
         System.gc();
         // Run benchmark.
-        Result r = run(p, map);
+        QpsResult r = run(p, map);
         System.out.println(r.toString());
         // Close DB.
         db.close();
@@ -113,11 +69,11 @@ public class QPS {
         return r;
     }
 
-    public static Result run(Param p, Map<Binary, Binary> m) {
+    public static QpsResult run(QpsParam p, Map<Binary, Binary> m) {
         return run(p, m, new Random());
     }
 
-    public static Result run(Param p, Map<Binary, Binary> m, Random r) {
+    public static QpsResult run(QpsParam p, Map<Binary, Binary> m, Random r) {
         List<Binary> keys = Utils.setupMap(m, r, p.numOfItems, p.hitRate,
                 p.keyMaxLen, p.valueMaxLen);
         // Warm up.
@@ -128,9 +84,9 @@ public class QPS {
         return run(p, m, r, keys);
     }
 
-    public static Result run(Param p, Map<Binary, Binary> m, Random r,
+    public static QpsResult run(QpsParam p, Map<Binary, Binary> m, Random r,
             List<Binary> keys) {
-        Result res = new Result();
+        QpsResult res = new QpsResult();
         int keySize = keys.size();
         long startAt = System.nanoTime();
 
@@ -150,8 +106,8 @@ public class QPS {
         return res;
     }
 
-    public static Param defaultParam() {
-        Param p = new Param();
+    public static QpsParam defaultParam() {
+        QpsParam p = new QpsParam();
         p.warmUp = 4;
         p.iteration = 1000;
         p.numOfItems = 1000 * 1000;
@@ -163,9 +119,9 @@ public class QPS {
     }
 
     public static void run() {
-        Param p = defaultParam();
+        QpsParam p = defaultParam();
         System.out.println();
-        System.out.println("Param: " + p.toString());
+        System.out.println("QpsParam: " + p.toString());
 
         runHashMap(p);
         runBOHMap(p);
@@ -173,16 +129,16 @@ public class QPS {
     }
 
     public static void runMurmur() {
-        Param p = defaultParam();
+        QpsParam p = defaultParam();
         System.out.println();
-        System.out.println("Param: " + p.toString());
+        System.out.println("QpsParam: " + p.toString());
 
         runBOHMap(p);
         runBOHMapMurmurHash3(p);
     }
 
     public static void runHitrate() {
-        Param p = defaultParam();
+        QpsParam p = defaultParam();
         double[] rates = new double[]{ 0.25, 0.5, 0.75, 1.0 };
 
         System.out.println("hitrate");
