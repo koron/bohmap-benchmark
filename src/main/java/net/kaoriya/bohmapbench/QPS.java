@@ -154,4 +154,19 @@ public class QPS {
         }
     }
 
+    public static void runCap() {
+        QpsParam p = defaultParam();
+        double[] rates = new double[]{
+            0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0
+        };
+
+        System.out.println("capacity");
+
+        for (double r : rates) {
+            p.bohmapPartitionCount = (int)(p.numOfItems * r);
+            runBOHMap(p);
+            System.out.println(String.format("%,3d/%,3d (%.2f)",
+                        p.bohmapPartitionCount, p.numOfItems, r));
+        }
+    }
 }

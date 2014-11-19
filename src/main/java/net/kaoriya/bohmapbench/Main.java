@@ -13,6 +13,8 @@ public class Main {
             QPS.runHitrate();
         } else if ("memory".equals(mode)) {
             Memory.run();
+        } else if ("capacity".equals(mode)) {
+            QPS.runCap();
         } else if ("hash".equals(mode)) {
             Hash.run();
         } else {
