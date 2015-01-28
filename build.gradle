@@ -13,10 +13,11 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.+'
-    compile group: 'org.mapdb', name: 'mapdb', version: '1.0.+'
+    compile 'org.apache.commons:commons-lang3:3.+'
+    compile 'org.mapdb:mapdb:1.0.+'
+    compile 'com.spotify.sparkey:sparkey:2.1.0'
 
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile 'junit:junit:4.11'
 }
 
 run {
