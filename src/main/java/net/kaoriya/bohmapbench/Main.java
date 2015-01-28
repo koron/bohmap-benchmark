@@ -17,6 +17,8 @@ public class Main {
             QPS.runCap();
         } else if ("hash".equals(mode)) {
             Hash.run();
+        } else if ("sparkey".equals(mode)) {
+            QPS.runSparkey();
         } else {
             QPS.run();
         }
