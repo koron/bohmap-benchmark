@@ -29,6 +29,10 @@ public class SparkeyUtils {
     }
 
     private static List<Binary> setupMap(File f, QpsParam p, Random r) {
+        File dir = f.getParentFile();
+        if (dir != null && !dir.exists()) {
+            dir.mkdirs();
+        }
         List<Binary> keys = null;
         try {
             SparkeyWriter w = Sparkey.createNew(f);

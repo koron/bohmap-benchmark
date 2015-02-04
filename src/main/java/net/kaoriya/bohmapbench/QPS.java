@@ -74,7 +74,7 @@ public class QPS {
         System.gc();
         System.out.println();
         System.out.println("Sparkey");
-        File f = new File("sparkey-qps");
+        File f = new File("var/sparkey-qps/db");
         QpsResult r = SparkeyUtils.runQps(f, p);
         System.out.println(r.toString());
         System.gc();
