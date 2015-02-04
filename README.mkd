@@ -77,6 +77,7 @@ Total time: 14.375 secs
 ### QPS comparing with Sparkey
 
 ```
+$ gradle run -Pargs=sparkey
 :compileJava UP-TO-DATE
 :processResources UP-TO-DATE
 :classes UP-TO-DATE
