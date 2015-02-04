@@ -1,5 +1,6 @@
 package net.kaoriya.bohmapbench;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,17 @@ public class QPS {
         System.out.println(r.toString());
         // Close DB.
         db.close();
+        System.gc();
+        return r;
+    }
+
+    public static QpsResult runSparkey(QpsParam p) {
+        System.gc();
+        System.out.println();
+        System.out.println("Sparkey");
+        File f = new File("var/sparkey-qps/db");
+        QpsResult r = SparkeyUtils.runQps(f, p);
+        System.out.println(r.toString());
         System.gc();
         return r;
     }
@@ -168,5 +180,14 @@ public class QPS {
             System.out.println(String.format("%,3d/%,3d (%.2f)",
                         p.bohmapPartitionCount, p.numOfItems, r));
         }
+    }
+
+    public static void runSparkey() {
+        QpsParam p = defaultParam();
+        System.out.println();
+        System.out.println("QpsParam: " + p.toString());
+
+        runBOHMap(p);
+        runSparkey(p);
     }
 }

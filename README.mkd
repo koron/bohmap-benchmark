@@ -20,6 +20,7 @@ $ gradle run -Pargs={MODE}
 MODE: one of these
   qps     - Benchmark QPS (default)
   murmur  - Benchmark QPS with murmurhash3
+  sparkey - Benchmark QPS: BOHMap vs Sparkey
   hitrate - Check QPS with changing hit rate
   memory  - Check memory
   hash    - Check hash characteristics
@@ -71,6 +72,44 @@ net.kaoriya.bohmapbench.QPS$Result@7de26db8[
 BUILD SUCCESSFUL
 
 Total time: 14.375 secs
+```
+
+### QPS comparing with Sparkey
+
+```
+$ gradle run -Pargs=sparkey
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@1d44bcfa[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@214c265e[
+  elapasedNanoTime=1,700,411
+  QPS=588,093
+  hitRate=0.749
+]
+
+Sparkey
+net.kaoriya.bohmapbench.QpsResult@1a86f2f1[
+  elapasedNanoTime=1,986,835
+  QPS=503,313
+  hitRate=0.725
+]
+
+BUILD SUCCESSFUL
+
+Total time: 7.286 secs
 ```
 
 ## Memory benchmark

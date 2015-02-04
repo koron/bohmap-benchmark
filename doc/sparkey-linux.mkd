@@ -1,0 +1,95 @@
+## Computer spec
+
+*   Model: XPS13-2013
+*   CPU: Core i7-3537U
+*   Memory: 4GB
+*   SSD: 256GB
+
+## Results
+
+**on Disk**
+
+```
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@7229724f[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@7530d0a[
+  elapasedNanoTime=1,492,788
+  QPS=669,887
+  hitRate=0.769
+]
+
+Sparkey
+net.kaoriya.bohmapbench.QpsResult@7a4f0f29[
+  elapasedNanoTime=1,992,117
+  QPS=501,978
+  hitRate=0.745
+]
+
+BUILD SUCCESSFUL
+
+Total time: 9.932 secs
+```
+
+**on tmpfs**
+
+```
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@7229724f[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@7530d0a[
+  elapasedNanoTime=1,489,393
+  QPS=671,414
+  hitRate=0.772
+]
+
+Sparkey
+net.kaoriya.bohmapbench.QpsResult@7a4f0f29[
+  elapasedNanoTime=2,011,726
+  QPS=497,085
+  hitRate=0.732
+]
+
+BUILD SUCCESSFUL
+
+Total time: 10.026 secs
+```
+
+**Results table**
+
+Media type     | BOHMap  | Sparkey | Ratio
+---------------|---------|---------|----------
+Disk (SSD)     | 669,887 | 501,978 | 1.33
+Memory (tmpfs) | 671,414 | 497,085 | 1.35
+
+## Appendix
+
+Mount new tmpfs.
+
+    $ sudo mount -t tmpfs -o size=512m newtmp ./var/sparkey-qps
