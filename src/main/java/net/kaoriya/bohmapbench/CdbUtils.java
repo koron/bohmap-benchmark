@@ -1,15 +1,14 @@
 package net.kaoriya.bohmapbench;
 
-import java.nio.ByteBuffer;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
-import java.util.Map;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import ca.hullabaloo.cdb.Cdb;
-import ca.hullabaloo.cdb.CdbMap;
 
 // NOTE: Copyied most from SparkeyUtils.java.  Need refactoring.
 
@@ -60,7 +59,7 @@ public class CdbUtils {
                 runQpsOnce(p, m, r, keys);
             }
             QpsResult qr = runQpsOnce(p, m, r, keys);
-            ((CdbMap)m).close();
+            Cdb.close(m);
             return qr;
         } catch (IOException e) {
             System.out.println("Failed to check QPS of  Sparkey");
