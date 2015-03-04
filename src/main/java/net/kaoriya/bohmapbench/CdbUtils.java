@@ -106,7 +106,9 @@ public class CdbUtils {
         int query = 0, hit = 0;
         for (int i = 0; i < p.iteration; ++i) {
             ++query;
-            ByteBuffer v = m.get(keys.get(r.nextInt(keySize)));
+            ByteBuffer k = keys.get(r.nextInt(keySize));
+            k.rewind();
+            ByteBuffer v = m.get(k);
             if (v != null) {
                 ++hit;
             }
