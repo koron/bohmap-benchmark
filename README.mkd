@@ -21,6 +21,7 @@ MODE: one of these
   qps     - Benchmark QPS (default)
   murmur  - Benchmark QPS with murmurhash3
   sparkey - Benchmark QPS: BOHMap vs Sparkey
+  cdb     - Benchmark QPS: BOHMap vs CDB (ssupend-cdb)
   hitrate - Check QPS with changing hit rate
   memory  - Check memory
   hash    - Check hash characteristics
@@ -111,6 +112,8 @@ BUILD SUCCESSFUL
 
 Total time: 7.286 secs
 ```
+
+### QPS comparing with CDB
 
 ## Memory benchmark
 

@@ -74,8 +74,19 @@ public class QPS {
         System.gc();
         System.out.println();
         System.out.println("Sparkey");
-        File f = new File("var/sparkey-qps/db");
+        File f = new File("var/sparkey-qps/benchmark");
         QpsResult r = SparkeyUtils.runQps(f, p);
+        System.out.println(r.toString());
+        System.gc();
+        return r;
+    }
+
+    public static QpsResult runCDB(QpsParam p) {
+        System.gc();
+        System.out.println();
+        System.out.println("CDB");
+        File f = new File("var/cdb-qps/benchmark.cdb");
+        QpsResult r = CdbUtils.runQps(f, p);
         System.out.println(r.toString());
         System.gc();
         return r;
@@ -189,5 +200,14 @@ public class QPS {
 
         runBOHMap(p);
         runSparkey(p);
+    }
+
+    public static void runCDB() {
+        QpsParam p = defaultParam();
+        System.out.println();
+        System.out.println("QpsParam: " + p.toString());
+
+        runBOHMap(p);
+        runCDB(p);
     }
 }
