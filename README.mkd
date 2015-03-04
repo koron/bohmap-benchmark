@@ -21,6 +21,7 @@ MODE: one of these
   qps     - Benchmark QPS (default)
   murmur  - Benchmark QPS with murmurhash3
   sparkey - Benchmark QPS: BOHMap vs Sparkey
+  cdb     - Benchmark QPS: BOHMap vs CDB (ssupend-cdb)
   hitrate - Check QPS with changing hit rate
   memory  - Check memory
   hash    - Check hash characteristics
@@ -110,6 +111,44 @@ net.kaoriya.bohmapbench.QpsResult@1a86f2f1[
 BUILD SUCCESSFUL
 
 Total time: 7.286 secs
+```
+
+### QPS comparing with CDB
+
+```
+$ gradle run -Pargs=cdb
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@6f94fa3e[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@7cca494b[
+  elapasedNanoTime=1,415,448
+  QPS=706,490
+  hitRate=0.718
+]
+
+CDB
+net.kaoriya.bohmapbench.QpsResult@34a245ab[
+  elapasedNanoTime=1,966,648
+  QPS=508,479
+  hitRate=0.76
+]
+
+BUILD SUCCESSFUL
+
+Total time: 12.817 secs
 ```
 
 ## Memory benchmark

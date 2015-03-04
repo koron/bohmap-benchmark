@@ -19,6 +19,8 @@ public class Main {
             Hash.run();
         } else if ("sparkey".equals(mode)) {
             QPS.runSparkey();
+        } else if ("cdb".equals(mode)) {
+            QPS.runCDB();
         } else {
             QPS.run();
         }

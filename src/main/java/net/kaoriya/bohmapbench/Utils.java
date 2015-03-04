@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.nio.ByteBuffer;
 
 import com.cfelde.bohmap.Binary;
 
@@ -48,5 +49,11 @@ public class Utils
         byte[] b = new byte[len];
         r.nextBytes(b);
         return new Binary(b);
+    }
+
+    public static ByteBuffer randomByteBuffer(Random r, int len) {
+        byte[] b = new byte[len];
+        r.nextBytes(b);
+        return ByteBuffer.wrap(b);
     }
 }
