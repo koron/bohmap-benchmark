@@ -21,6 +21,8 @@ public class Main {
             QPS.runSparkey();
         } else if ("cdb".equals(mode)) {
             QPS.runCDB();
+        } else if ("fst".equals(mode)) {
+            QPS.runFST();
         } else {
             QPS.run();
         }

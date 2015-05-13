@@ -46,14 +46,16 @@ public class Utils
     }
 
     public static Binary randomBinary(Random r, int len) {
-        byte[] b = new byte[len];
-        r.nextBytes(b);
-        return new Binary(b);
+        return new Binary(randomBytes(r, len));
     }
 
     public static ByteBuffer randomByteBuffer(Random r, int len) {
+        return ByteBuffer.wrap(randomBytes(r, len));
+    }
+
+    public static byte[] randomBytes(Random r, int len) {
         byte[] b = new byte[len];
         r.nextBytes(b);
-        return ByteBuffer.wrap(b);
+        return b;
     }
 }

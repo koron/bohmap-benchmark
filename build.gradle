@@ -3,7 +3,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-version = '0.2'
+version = '0.3'
 mainClassName = 'net.kaoriya.bohmapbench.Main'
 
 repositories {
@@ -16,6 +16,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.+'
     compile 'org.mapdb:mapdb:1.0.+'
     compile 'com.spotify.sparkey:sparkey:2.1.0'
+    compile 'org.apache.lucene:lucene-core:5.1.+'
 
     testCompile 'junit:junit:4.11'
 }
@@ -24,11 +25,14 @@ run {
     if (project.hasProperty('args')) {
         args project.args.split('\\s+')
     }
+    if (project.hasProperty('jvmArgs')) {
+        jvmArgs project.jvmArgs.split('\\s+')
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////
 // gradle wrapper task
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
+    gradleVersion = '2.3'
 }

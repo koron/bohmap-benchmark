@@ -92,6 +92,16 @@ public class QPS {
         return r;
     }
 
+    public static QpsResult runFST(QpsParam p) {
+        System.gc();
+        System.out.println();
+        System.out.println("CDB");
+        QpsResult r = FstUtils.runQps(p);
+        System.out.println(r.toString());
+        System.gc();
+        return r;
+    }
+
     public static QpsResult run(QpsParam p, Map<Binary, Binary> m) {
         return run(p, m, new Random());
     }
@@ -209,5 +219,14 @@ public class QPS {
 
         runBOHMap(p);
         runCDB(p);
+    }
+
+    public static void runFST() {
+        QpsParam p = defaultParam();
+        System.out.println();
+        System.out.println("QpsParam: " + p.toString());
+
+        runBOHMap(p);
+        runFST(p);
     }
 }
