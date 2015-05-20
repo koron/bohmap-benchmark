@@ -151,6 +151,45 @@ BUILD SUCCESSFUL
 Total time: 12.817 secs
 ```
 
+### QPS comparing with FST
+
+```
+$ gradle run -Pargs=fst
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@66d3c617[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=1
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@9807454[
+  elapasedNanoTime=1,433,113
+  QPS=697,781
+  hitRate=0.727
+]
+
+FST (lucene)
+FST#create wasted nanotime: 67,121,186,596
+net.kaoriya.bohmapbench.QpsResult@36aa7bc2[
+  elapasedNanoTime=8,404,754
+  QPS=118,980
+  hitRate=0.739
+]
+
+BUILD SUCCESSFUL
+
+Total time: 1 mins 15.626 secs
+```
+
 ## Memory benchmark
 
 ```
