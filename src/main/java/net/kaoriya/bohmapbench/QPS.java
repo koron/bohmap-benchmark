@@ -93,13 +93,18 @@ public class QPS {
     }
 
     public static QpsResult runFST(QpsParam p) {
-        System.gc();
-        System.out.println();
-        System.out.println("CDB");
-        QpsResult r = FstUtils.runQps(p);
-        System.out.println(r.toString());
-        System.gc();
-        return r;
+        try {
+            System.gc();
+            System.out.println();
+            System.out.println("FST (lucene)");
+            QpsResult r = FstUtils.runQps(p);
+            System.out.println(r.toString());
+            System.gc();
+            return r;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static QpsResult run(QpsParam p, Map<Binary, Binary> m) {
@@ -223,6 +228,8 @@ public class QPS {
 
     public static void runFST() {
         QpsParam p = defaultParam();
+        //p.numOfItems = 1000 * 1000;
+        p.valueMaxLen = 1;
         System.out.println();
         System.out.println("QpsParam: " + p.toString());
 
