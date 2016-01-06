@@ -169,27 +169,44 @@ Total time: 7.468 secs
 ## Memory benchmark
 
 ```
-$ gradle run -Pargs="memory"
 :compileJava
 :processResources UP-TO-DATE
 :classes
 :run
 HashMap:
-  before    3,190,560
-  doing   364,280,400
-  after    12,280,624
+  MEM:before       3,190,584 (bytes)
+   GC:alive1     838,592,781 (nsec)
+  MEM:alive1     364,280,504 (bytes)
+   GC:alive2     722,059,488 (nsec)
+  MEM:alive2     364,280,656 (bytes)
+   GC:clear1      13,081,718 (nsec)
+  MEM:after1      12,280,880 (bytes)
+   GC:clear2       8,216,266 (nsec)
+  MEM:after2      12,280,992 (bytes)
 SmoothieMap:
-  before    7,106,616
-  doing   344,237,328
-  after    24,237,328
+  MEM:before       7,107,064 (bytes)
+   GC:alive1     616,058,158 (nsec)
+  MEM:alive1     348,426,072 (bytes)
+   GC:alive2     410,077,485 (nsec)
+  MEM:alive2     348,426,072 (bytes)
+   GC:clear1      23,350,076 (nsec)
+  MEM:after1      28,426,072 (bytes)
+   GC:clear2      15,303,209 (nsec)
+  MEM:after2      28,426,072 (bytes)
 BOHMap:
-  before    6,675,976
-  doing     6,675,880
-  after     6,675,880
+  MEM:before       6,676,424 (bytes)
+   GC:alive1      12,653,688 (nsec)
+  MEM:alive1      11,554,024 (bytes)
+   GC:alive2      13,196,114 (nsec)
+  MEM:alive2      12,597,368 (bytes)
+   GC:clear1      14,041,936 (nsec)
+  MEM:after1      11,554,160 (bytes)
+   GC:clear2      11,760,176 (nsec)
+  MEM:after2      11,554,160 (bytes)
 
 BUILD SUCCESSFUL
 
-Total time: 58.029 secs
+Total time: 42.962 secs
 ```
 
 ## QPS by Hit rate
