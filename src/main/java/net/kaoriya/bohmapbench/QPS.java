@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.cfelde.bohmap.BOHMap;
 import com.cfelde.bohmap.Binary;
+import net.openhft.smoothie.SmoothieMap;
 import org.mapdb.DBMaker;
 import org.mapdb.DB;
 import org.mapdb.HTreeMap;
@@ -92,6 +93,16 @@ public class QPS {
         return r;
     }
 
+    public static QpsResult runSmoothie(QpsParam p) {
+        System.gc();
+        System.out.println();
+        System.out.println("SmoothieMap");
+        QpsResult r = run(p, new SmoothieMap<Binary, Binary>());
+        System.out.println(r.toString());
+        System.gc();
+        return r;
+    }
+
     public static QpsResult run(QpsParam p, Map<Binary, Binary> m) {
         return run(p, m, new Random());
     }
@@ -149,6 +160,7 @@ public class QPS {
         runHashMap(p);
         runBOHMap(p);
         runMapDB(p);
+        runSmoothie(p);
     }
 
     public static void runMurmur() {
@@ -209,5 +221,14 @@ public class QPS {
 
         runBOHMap(p);
         runCDB(p);
+    }
+
+    public static void runSmoothie() {
+        QpsParam p = defaultParam();
+        System.out.println();
+        System.out.println("QpsParam: " + p.toString());
+
+        runBOHMap(p);
+        runSmoothie(p);
     }
 }

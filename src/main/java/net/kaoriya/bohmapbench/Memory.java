@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.cfelde.bohmap.BOHMap;
 import com.cfelde.bohmap.Binary;
+import net.openhft.smoothie.SmoothieMap;
 
 public class Memory {
     public static long memoryUsage(String label) {
@@ -39,6 +40,7 @@ public class Memory {
         double capacity = 1.5;
 
         run(mp, new HashMap<Binary, Binary>(), new Random());
+        run(mp, new SmoothieMap<Binary, Binary>(), new Random());
         run(mp, new BOHMap((int)(mp.numOfItems * capacity)), new Random());
     }
 }

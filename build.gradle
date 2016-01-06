@@ -16,6 +16,9 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.+'
     compile 'org.mapdb:mapdb:1.0.+'
     compile 'com.spotify.sparkey:sparkey:2.1.0'
+    compile 'net.openhft:smoothie-map:1.1'
+
+    runtime 'org.slf4j:slf4j-simple:1.7.+'
 
     testCompile 'junit:junit:4.11'
 }

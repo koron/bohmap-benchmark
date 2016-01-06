@@ -21,6 +21,8 @@ public class Main {
             QPS.runSparkey();
         } else if ("cdb".equals(mode)) {
             QPS.runCDB();
+        } else if ("smoothie".equals(mode)) {
+            QPS.runSmoothie();
         } else {
             QPS.run();
         }
