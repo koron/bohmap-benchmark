@@ -9,12 +9,22 @@ import com.cfelde.bohmap.Binary;
 import net.openhft.smoothie.SmoothieMap;
 
 public class Memory {
+
     public static long memoryUsage(String label) {
         Runtime r = Runtime.getRuntime();
         long used = r.totalMemory() - r.freeMemory();
         System.out.println(
-                String.format("  %0$-6s %2$,12d", label, used));
+                String.format("  MEM:%1$-6s %2$,15d (bytes)", label, used));
         return used;
+    }
+
+    // gc execute GC and measure its time.
+    public static void gc(String label) {
+        long st  = System.nanoTime();
+        System.gc();
+        long et = System.nanoTime();
+        System.out.println(
+                String.format("   GC:%1$-6s %2$,15d (nsec)", label, et - st));
     }
 
     public static void run(MapParam mp, Map<Binary, Binary> m, Random r) {
@@ -23,12 +33,16 @@ public class Memory {
         System.gc();
         memoryUsage("before");
         Utils.setupMap(m, r, mp);
-        System.gc();
-        memoryUsage("doing");
-        try { Thread.sleep(15 * 1000); } catch (InterruptedException e) {}
+        gc("alive1");
+        memoryUsage("alive1");
+        gc("alive2");
+        memoryUsage("alive2");
+        try { Thread.sleep(10 * 1000); } catch (InterruptedException e) {}
         m.clear();
-        System.gc();
-        memoryUsage("after");
+        gc("clear1");
+        memoryUsage("after1");
+        gc("clear2");
+        memoryUsage("after2");
     }
 
     public static void run() {

@@ -1,0 +1,202 @@
+# Latest Results
+
+## QPS
+
+**bohmap is about two times slower than HashMap.**
+
+```
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@2b193f2d[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+HashMap
+net.kaoriya.bohmapbench.QpsResult@3cd1a2f1[
+  elapasedNanoTime=624,931
+  QPS=1,600,176
+  hitRate=0.749
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@6d03e736[
+  elapasedNanoTime=1,547,699
+  QPS=646,120
+  hitRate=0.754
+]
+
+MapDB
+net.kaoriya.bohmapbench.QpsResult@4361bd48[
+  elapasedNanoTime=2,050,629
+  QPS=487,655
+  hitRate=0.744
+]
+
+SmoothieMap
+net.kaoriya.bohmapbench.QpsResult@48a242ce[
+  elapasedNanoTime=581,046
+  QPS=1,721,034
+  hitRate=0.749
+]
+
+BUILD SUCCESSFUL
+
+Total time: 17.905 secs
+```
+
+### QPS comparing with Sparkey
+
+```
+$ gradle run -Pargs=sparkey
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@1d44bcfa[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@214c265e[
+  elapasedNanoTime=1,700,411
+  QPS=588,093
+  hitRate=0.749
+]
+
+Sparkey
+net.kaoriya.bohmapbench.QpsResult@1a86f2f1[
+  elapasedNanoTime=1,986,835
+  QPS=503,313
+  hitRate=0.725
+]
+
+BUILD SUCCESSFUL
+
+Total time: 7.286 secs
+```
+
+### QPS comparing with CDB
+
+```
+$ gradle run -Pargs=cdb
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@6f94fa3e[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@7cca494b[
+  elapasedNanoTime=1,415,448
+  QPS=706,490
+  hitRate=0.718
+]
+
+CDB
+net.kaoriya.bohmapbench.QpsResult@34a245ab[
+  elapasedNanoTime=1,966,648
+  QPS=508,479
+  hitRate=0.76
+]
+
+BUILD SUCCESSFUL
+
+Total time: 12.817 secs
+```
+
+### QPS comparing with SmoothieMap
+
+```
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run
+
+QpsParam: net.kaoriya.bohmapbench.QpsParam@2b193f2d[
+  warmUp=4
+  iteration=1000
+  numOfItems=1000000
+  hitRate=0.75
+  keyMaxLen=128
+  valueMaxLen=128
+  bohmapPartitionCount=1500000
+]
+
+BOHMap
+net.kaoriya.bohmapbench.QpsResult@58372a00[
+  elapasedNanoTime=1,411,947
+  QPS=708,241
+  hitRate=0.74
+]
+
+SmoothieMap
+net.kaoriya.bohmapbench.QpsResult@704a52ec[
+  elapasedNanoTime=636,927
+  QPS=1,570,038
+  hitRate=0.734
+]
+
+BUILD SUCCESSFUL
+
+Total time: 7.468 secs
+```
+
+## Memory benchmark
+
+```
+$ gradle run -Pargs="memory"
+:compileJava
+:processResources UP-TO-DATE
+:classes
+:run
+HashMap:
+  before    3,190,560
+  doing   364,280,400
+  after    12,280,624
+SmoothieMap:
+  before    7,106,616
+  doing   344,237,328
+  after    24,237,328
+BOHMap:
+  before    6,675,976
+  doing     6,675,880
+  after     6,675,880
+
+BUILD SUCCESSFUL
+
+Total time: 58.029 secs
+```
+
+## QPS by Hit rate
+
+Hit rate | BOHMap (QPS) | HashMap (QPS)
+---------|-------------:|--------------:
+0.25     |1,005,000     |1,710,000
+0.50     |  720,000     |1,590,000
+0.75     |1,080,000     |1,630,000
+1.00     |  970,000     |1,610,000
