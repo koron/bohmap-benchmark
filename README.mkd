@@ -23,6 +23,7 @@ MODE: one of these
   sparkey - Benchmark QPS: BOHMap vs Sparkey
   cdb     - Benchmark QPS: BOHMap vs CDB (supend-cdb)
   smoothie - Benchmark QPS: BOHMap vs SmoothieMap
+  ips     - Benchrmak IPS
   hitrate - Check QPS with changing hit rate
   memory  - Check memory
   hash    - Check hash characteristics
@@ -35,10 +36,6 @@ See [RESULTS.md](./RESULTS.md) for all latest results
 ## Memory benchmark
 
 ```
-:compileJava
-:processResources UP-TO-DATE
-:classes
-:run
 HashMap:
   MEM:before       3,190,584 (bytes)
    GC:alive1     838,592,781 (nsec)
@@ -69,8 +66,29 @@ BOHMap:
   MEM:after1      11,554,160 (bytes)
    GC:clear2      11,760,176 (nsec)
   MEM:after2      11,554,160 (bytes)
+```
 
-BUILD SUCCESSFUL
+## IPS benchmark
 
-Total time: 42.962 secs
+```
+HashMap:
+net.kaoriya.bohmapbench.IPSResult@266474c2[
+  elapsedNanoTime=339,837,681
+  IPS=2,942,581
+]
+SmoothieMap:
+net.kaoriya.bohmapbench.IPSResult@3d99d22e[
+  elapsedNanoTime=654,249,744
+  IPS=1,528,468
+]
+SmoothieMap (initialized):
+net.kaoriya.bohmapbench.IPSResult@49fc609f[
+  elapsedNanoTime=321,440,212
+  IPS=3,110,998
+]
+BOHMap:
+net.kaoriya.bohmapbench.IPSResult@27a8c74e[
+  elapsedNanoTime=857,288,390
+  IPS=1,166,468
+]
 ```

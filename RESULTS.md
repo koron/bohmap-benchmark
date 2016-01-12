@@ -225,3 +225,28 @@ Hit rate | BOHMap (QPS) | HashMap (QPS)
 0.50     |  720,000     |1,590,000
 0.75     |1,080,000     |1,630,000
 1.00     |  970,000     |1,610,000
+
+## IPS benchmark
+
+```
+HashMap:
+net.kaoriya.bohmapbench.IPSResult@266474c2[
+  elapsedNanoTime=339,837,681
+  IPS=2,942,581
+]
+SmoothieMap:
+net.kaoriya.bohmapbench.IPSResult@3d99d22e[
+  elapsedNanoTime=654,249,744
+  IPS=1,528,468
+]
+SmoothieMap (initialized):
+net.kaoriya.bohmapbench.IPSResult@49fc609f[
+  elapsedNanoTime=321,440,212
+  IPS=3,110,998
+]
+BOHMap:
+net.kaoriya.bohmapbench.IPSResult@27a8c74e[
+  elapsedNanoTime=857,288,390
+  IPS=1,166,468
+]
+```

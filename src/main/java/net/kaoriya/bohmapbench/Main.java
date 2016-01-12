@@ -23,6 +23,8 @@ public class Main {
             QPS.runCDB();
         } else if ("smoothie".equals(mode)) {
             QPS.runSmoothie();
+        } else if ("ips".equals(mode)) {
+            IPS.run();
         } else {
             QPS.run();
         }
