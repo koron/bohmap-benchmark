@@ -97,7 +97,7 @@ public class QPS {
         System.gc();
         System.out.println();
         System.out.println("SmoothieMap");
-        QpsResult r = run(p, new SmoothieMap<Binary, Binary>());
+        QpsResult r = run(p, new SmoothieMap<Binary, Binary>(1000000));
         System.out.println(r.toString());
         System.gc();
         return r;
@@ -110,12 +110,15 @@ public class QPS {
     public static QpsResult run(QpsParam p, Map<Binary, Binary> m, Random r) {
         List<Binary> keys = Utils.setupMap(m, r, p.numOfItems, p.hitRate,
                 p.keyMaxLen, p.valueMaxLen);
+        IPSResult ipsResult = Utils.lastIPSResult;
         // Warm up.
         for (int i = 0; i < p.warmUp; ++i) {
             run(p, m, r, keys);
         }
         // Query to map.
-        return run(p, m, r, keys);
+        QpsResult result = run(p, m, r, keys);
+        result.ipsResult = ipsResult;
+        return result;
     }
 
     public static QpsResult run(QpsParam p, Map<Binary, Binary> m, Random r,
@@ -134,7 +137,7 @@ public class QPS {
             }
         }
 
-        res.elapasedNanoTime = System.nanoTime() - startAt;
+        res.elapsedNanoTime = System.nanoTime() - startAt;
         res.queryCount = query;
         res.hitCount = hit;
         return res;

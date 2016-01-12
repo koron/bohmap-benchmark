@@ -106,7 +106,7 @@ public class SparkeyUtils {
             }
         }
 
-        res.elapasedNanoTime = System.nanoTime() - startAt;
+        res.elapsedNanoTime = System.nanoTime() - startAt;
         res.queryCount = query;
         res.hitCount = hit;
         return res;

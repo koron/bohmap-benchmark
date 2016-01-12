@@ -10,6 +10,8 @@ import com.cfelde.bohmap.Binary;
 
 public class Utils
 {
+    public static IPSResult lastIPSResult;
+
     /**
      * Setup random keys and values to map.
      *
@@ -30,9 +32,12 @@ public class Utils
             keys.add(randomBinary(r, keyLen));
         }
         // Generate values.
+        long startAt = System.nanoTime();
         for (int i = 0; i < num; ++i) {
             m.put(keys.get(i), randomBinary(r, valueLen));
         }
+        long elapsed = System.nanoTime() - startAt;
+        lastIPSResult = new IPSResult(num, elapsed);
         return keys;
     }
 

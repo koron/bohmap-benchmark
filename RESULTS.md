@@ -5,9 +5,9 @@
 **bohmap is about two times slower than HashMap.**
 
 ```
-:compileJava UP-TO-DATE
+:compileJava
 :processResources UP-TO-DATE
-:classes UP-TO-DATE
+:classes
 :run
 
 QpsParam: net.kaoriya.bohmapbench.QpsParam@2b193f2d[
@@ -22,35 +22,43 @@ QpsParam: net.kaoriya.bohmapbench.QpsParam@2b193f2d[
 
 HashMap
 net.kaoriya.bohmapbench.QpsResult@3cd1a2f1[
-  elapasedNanoTime=624,931
-  QPS=1,600,176
-  hitRate=0.749
+  elapsedNanoTime=555,008
+  QPS=1,801,775
+  hitRate=0.745
+  IPS=705,932
+  insertedCount=1000000
 ]
 
 BOHMap
 net.kaoriya.bohmapbench.QpsResult@6d03e736[
-  elapasedNanoTime=1,547,699
-  QPS=646,120
-  hitRate=0.754
+  elapsedNanoTime=2,036,882
+  QPS=490,946
+  hitRate=0.753
+  IPS=736,738
+  insertedCount=1000000
 ]
 
 MapDB
 net.kaoriya.bohmapbench.QpsResult@4361bd48[
-  elapasedNanoTime=2,050,629
-  QPS=487,655
-  hitRate=0.744
+  elapsedNanoTime=2,208,621
+  QPS=452,771
+  hitRate=0.736
+  IPS=143,003
+  insertedCount=1000000
 ]
 
 SmoothieMap
 net.kaoriya.bohmapbench.QpsResult@48a242ce[
-  elapasedNanoTime=581,046
-  QPS=1,721,034
-  hitRate=0.749
+  elapsedNanoTime=605,915
+  QPS=1,650,396
+  hitRate=0.742
+  IPS=772,012
+  insertedCount=1000000
 ]
 
 BUILD SUCCESSFUL
 
-Total time: 17.905 secs
+Total time: 18.888 secs
 ```
 
 ### QPS comparing with Sparkey
